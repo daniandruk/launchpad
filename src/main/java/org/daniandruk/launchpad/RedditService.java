@@ -1,20 +1,5 @@
 package org.daniandruk.launchpad;
 
-//Your username is: 
-//
-//j3845180 
-//
-//Visit this link to verify your email address: 
-//
-//https://www.reddit.com/verification/4vzCgG9g2tI0nHdgbc8i2C5iK-s?ref_campaign=verify_email&ref_source=email&ref=verify_email 
-//
-//Please do not reply to this notification, this inbox is not monitored. 
-//
-//If you are having a problem with your account, please email contact@reddit.com 
-//
-//Thanks for using the site! 
-// PHnAYBIIpt89pw
-// 9snKYckOwEA1TO9ZIhPA5KorKHs
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
