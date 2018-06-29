@@ -1,5 +1,6 @@
-package org.daniandruk.launchpad;
+package org.daniandruk.launchpad.service;
 
+import org.daniandruk.launchpad.model.Item;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -12,6 +13,8 @@ import net.dean.jraw.models.Submission;
 import net.dean.jraw.oauth.Credentials;
 import net.dean.jraw.oauth.OAuthHelper;
 import net.dean.jraw.pagination.SearchPaginator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -19,6 +22,8 @@ import org.springframework.context.annotation.PropertySource;
 @Configuration
 @PropertySource("classpath:application.properties")
 public class RedditService {
+
+    private final Logger logger = LoggerFactory.getLogger(RedditService.class);
 
     private final RedditClient redditClient;
 
@@ -29,9 +34,11 @@ public class RedditService {
         Credentials credentials = Credentials.script(username, password, clientid, secret);
         NetworkAdapter adapter = new OkHttpNetworkAdapter(userAgent);
         redditClient = OAuthHelper.automatic(adapter, credentials);
+        logger.info("redditClient started");
     }
 
     public List<Item> getItems(String query, int limit) {
+        logger.debug("getItems(" + query + ", " + limit + ")");
         SearchPaginator searchPaginator = redditClient.subreddits("pics", "videos").search().query(query).sorting(SearchSort.COMMENTS).limit(limit).build();
         List<Submission> submissions = searchPaginator.accumulateMerged(1);
         List<Item> items = new ArrayList<>();
@@ -39,6 +46,7 @@ public class RedditService {
             Item item = new Item();
             item.setName(submission.getFullName());
             item.setUrl(submission.getUrl());
+            item.setThumbnail(submission.getThumbnail());
             item.setCount(submission.getCommentCount());
             return item;
         }).forEach((item) -> {

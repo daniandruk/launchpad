@@ -1,9 +1,10 @@
-package org.daniandruk.launchpad;
+package org.daniandruk.launchpad.model;
 
 public class Item {
 
     private String name;
     private String url;
+    private String thumbnail;
     private int count;
 
     public String getName() {
@@ -28,6 +29,14 @@ public class Item {
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
     }
 
 }
